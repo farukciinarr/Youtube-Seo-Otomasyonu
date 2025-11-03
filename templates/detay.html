@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✍️ Video İçeriği - Adım 2/3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .animated-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-primary:hover::before { left: 100%; }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(16, 185, 129, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        textarea {
+            resize: vertical;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        textarea:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #10b981;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+        }
+        
+        textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Character counter */
+        .char-counter {
+            position: absolute;
+            bottom: 12px;
+            right: 16px;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+        }
+        
+        /* Loading animation */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #10b981;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        /* Typing indicator */
+        .typing-indicator {
+            display: inline-flex;
+            gap: 4px;
+        }
+        
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+        
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    
+    <div class="relative z-10 min-h-screen flex flex-col items-center p-4 md:p-8 py-12">
+        
+        <!-- Progress Steps -->
+        <div class="mb-8">
+            <div class="flex items-center justify-center gap-2">
+                <div class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-lg shadow-lg">
+                    ✓
+                </div>
+                <div class="w-16 h-1 bg-green-400"></div>
+                <div class="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-xl shadow-lg animate-pulse">
+                    2
+                </div>
+                <div class="w-16 h-1 bg-white/30"></div>
+                <div class="w-10 h-10 rounded-full bg-white/30 text-white flex items-center justify-center font-bold text-lg">
+                    3
+                </div>
+            </div>
+            <div class="flex justify-between mt-3 text-white/80 text-sm font-semibold px-2">
+                <span>Kategori ✓</span>
+                <span class="text-green-300">İçerik</span>
+                <span>Sonuç</span>
+            </div>
+        </div>
+        
+        <!-- Header -->
+        <div class="text-center mb-6">
+            <h1 class="text-3xl md:text-5xl font-black text-white mb-3 drop-shadow-2xl">
+                ✍️ Video İçeriğinizi Anlatın
+            </h1>
+            <p class="text-lg text-white/90 font-semibold mb-2">
+                Kategori: <span class="text-yellow-300 font-bold">{{ category }}</span>
+            </p>
+            <p class="text-base text-white/80">
+                Kısa bir özet yazın, yapay zeka detaylandırsın
+            </p>
+        </div>
+        
+        <!-- Stats Banner -->
+        <div class="glass p-4 mb-6 w-full max-w-2xl">
+            <div class="grid grid-cols-3 gap-3 text-center">
+                <div>
+                    <div class="text-2xl mb-1">⚡</div>
+                    <div class="text-white font-bold text-sm">8 Saniye</div>
+                    <div class="text-white/60 text-xs">Ortalama Süre</div>
+                </div>
+                <div>
+                    <div class="text-2xl mb-1">🤖</div>
+                    <div class="text-white font-bold text-sm">Yapay Zeka</div>
+                    <div class="text-white/60 text-xs">Destekli</div>
+                </div>
+                <div>
+                    <div class="text-2xl mb-1">📝</div>
+                    <div class="text-white font-bold text-sm">50-500 Karakter</div>
+                    <div class="text-white/60 text-xs">Önerilen</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Form Card -->
+        <div class="glass p-6 md:p-8 w-full max-w-3xl mb-6">
+            {% if error_message %}
+            <div class="bg-red-500/20 border border-red-400 text-white px-4 py-3 rounded-lg mb-6 flex items-start gap-3" role="alert">
+                <div class="text-2xl">⚠️</div>
+                <div>
+                    <strong class="font-bold block">Hata:</strong>
+                    <span class="block mt-1">{{ error_message }}</span>
+                </div>
+            </div>
+            {% endif %}
+            
+            <form action="{{ url_for('detay') }}" method="post" id="contentForm" class="space-y-6">
+                <div class="relative">
+                    <label for="user_input" class="block text-lg font-bold text-white mb-3">
+                        💬 Video Konusu / Özeti
+                    </label>
+                    
+                    <div class="relative">
+                        <textarea 
+                            id="user_input" 
+                            name="user_input" 
+                            rows="8" 
+                            required 
+                            maxlength="1000"
+                            class="w-full px-5 py-4 rounded-xl text-white text-base leading-relaxed pr-24"
+                            placeholder="Örnek: 'Japonya'da 10 gün kaldım, Tokyo'yu gezdim, ramen yedim ve Fuji dağını gördüm. Harika bir deneyimdi!'
+
+veya
+
+'Matematik dersinde integral konusunu anlattım. Türev ve integral arasındaki ilişkiyi gösterdim. Öğrenciler için faydalı olacak.'
+
+Yapay zeka bu kısa metni detaylı, SEO uyumlu bir açıklamaya dönüştürecek! 🚀"
+                            oninput="updateCharCount()">{% if user_input %}{{ user_input }}{% endif %}</textarea>
+                        <div class="char-counter" id="charCount">0 / 1000</div>
+                    </div>
+                    
+                    <p class="text-sm text-white/70 mt-3 flex items-center gap-2">
+                        <span class="text-lg">💡</span>
+                        <span>Ne kadar detay verirseniz, yapay zeka o kadar iyi optimize eder!</span>
+                    </p>
+                </div>
+                
+                <!-- Example Cards -->
+                <div class="bg-white/10 rounded-xl p-4">
+                    <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                        <span class="text-xl">📌</span> Örnek İçerikler
+                    </h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="bg-white/10 rounded-lg p-3 cursor-pointer hover:bg-white/20 transition" onclick="fillExample(0)">
+                            <strong class="text-green-300">Seyahat:</strong>
+                            <span class="text-white/80"> "İstanbul'da 3 gün geçirdim, Kapalıçarşı'yı gezdim, Boğaz turu yaptım..."</span>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-3 cursor-pointer hover:bg-white/20 transition" onclick="fillExample(1)">
+                            <strong class="text-blue-300">Eğitim:</strong>
+                            <span class="text-white/80"> "Python programlama dersi, değişkenler ve fonksiyonları anlattım..."</span>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-3 cursor-pointer hover:bg-white/20 transition" onclick="fillExample(2)">
+                            <strong class="text-yellow-300">Yemek:</strong>
+                            <span class="text-white/80"> "Evde kolay pasta tarifi, sadece 5 malzeme ile muhteşem sonuç..."</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Buttons -->
+                <div class="flex gap-3 pt-4">
+                    <a href="{{ url_for('index') }}" 
+                       class="flex-1 btn-secondary text-white font-semibold py-4 px-6 rounded-xl text-center shadow-lg transition">
+                        ← Geri Dön
+                    </a>
+                    <button type="submit" 
+                            id="submitBtn"
+                            class="flex-1 btn-primary text-white font-bold py-4 px-6 rounded-xl shadow-2xl text-lg flex items-center justify-center gap-2">
+                        <span id="btnText">🚀 Optimize Et - Adım 2/3</span>
+                        <div id="btnSpinner" class="spinner hidden"></div>
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Trust Info -->
+        <div class="glass p-4 w-full max-w-3xl">
+            <div class="flex items-center justify-center gap-6 text-white/80 text-sm flex-wrap">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">🔒</span>
+                    <span>Güvenli İşlem</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">🤖</span>
+                    <span>GPT-4 Powered</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">⚡</span>
+                    <span>Hızlı Sonuç</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const examples = [
+            "İstanbul'da 3 gün geçirdim. Sultanahmet'i, Kapalıçarşı'yı gezdim. Boğaz turu yaptık ve harika manzaralar gördük. Yerel lezzetleri tattık, özellikle balık ekmek çok güzeldi!",
+            "Python programlama dersinde değişkenler ve fonksiyonları anlattım. Basit örneklerle başlayıp, daha karmaşık yapılara geçtim. Öğrenciler için faydalı bir ders oldu.",
+            "Evde kolay pasta tarifi paylaşıyorum! Sadece 5 malzeme ile muhteşem bir pasta yapabilirsiniz. Un, yumurta, süt, şeker ve kabartma tozu yeterli. 30 dakikada hazır!"
+        ];
+        
+        function fillExample(index) {
+            document.getElementById('user_input').value = examples[index];
+            updateCharCount();
+        }
+        
+        function updateCharCount() {
+            const textarea = document.getElementById('user_input');
+            const counter = document.getElementById('charCount');
+            const length = textarea.value.length;
+            counter.textContent = `${length} / 1000`;
+            
+            if (length > 900) {
+                counter.style.color = '#ef4444';
+            } else if (length > 700) {
+                counter.style.color = '#f59e0b';
+            } else {
+                counter.style.color = 'rgba(255, 255, 255, 0.6)';
+            }
+        }
+        
+        // Form submit animation
+        document.getElementById('contentForm').addEventListener('submit', function() {
+            const btn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+            
+            btn.disabled = true;
+            btnText.textContent = 'Optimize Ediliyor';
+            btnSpinner.classList.remove('hidden');
+            btn.style.opacity = '0.8';
+        });
+        
+        // Initialize char count
+        updateCharCount();
+    </script>
+</body>
+</html>

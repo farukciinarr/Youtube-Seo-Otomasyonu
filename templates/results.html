@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Tebrikler! Video Optimize Edildi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .animated-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px);
+            border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-card {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px);
+            border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .result-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); }
+        
+        .score-circle {
+            width: 200px; height: 200px; border-radius: 50%;
+            background: conic-gradient(#10b981 0deg, #10b981 0deg, rgba(255,255,255,0.2) 0deg);
+            display: flex; align-items: center; justify-content: center;
+            animation: scoreReveal 2s ease forwards;
+        }
+        
+        .score-inner {
+            width: 160px; height: 160px; border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        
+        @keyframes scoreReveal {
+            from { transform: rotate(0deg) scale(0.8); opacity: 0; }
+            to { transform: rotate(360deg) scale(1); opacity: 1; }
+        }
+        
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .pulse { animation: pulse 2s infinite; }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(16, 185, 129, 0.4); }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(139, 92, 246, 0.4); }
+        
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
+        
+        .copy-btn { transition: all 0.2s ease; }
+        .copy-btn:active { transform: scale(0.95); }
+        
+        @keyframes badgePop {
+            0% { transform: scale(0) rotate(-180deg); }
+            60% { transform: scale(1.2) rotate(10deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        .badge { animation: badgePop 0.6s ease forwards; }
+        
+        .stat-mini { transition: all 0.3s ease; }
+        .stat-mini:hover { transform: translateX(5px); }
+        
+        @keyframes fillBar { from { width: 0%; } to { width: 100%; } }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    
+    <div class="relative z-10 min-h-screen flex flex-col items-center p-4 md:p-8 py-8">
+        
+        <div class="text-center mb-6 animate-fade-in">
+            <div class="text-7xl mb-4 pulse">🎉</div>
+            <h1 class="text-4xl md:text-6xl font-black text-white mb-3 drop-shadow-2xl">
+                Tebrikler! Optimizasyon <span class="text-green-300">Başarılı!</span>
+            </h1>
+            <p class="text-lg text-white/90 font-semibold">Videonuz için profesyonel SEO içerikleri hazır</p>
+        </div>
+        
+        <div class="mb-8">
+            <div class="flex items-center justify-center gap-2">
+                <div class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold shadow-lg">✓</div>
+                <div class="w-16 h-1 bg-green-400"></div>
+                <div class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold shadow-lg">✓</div>
+                <div class="w-16 h-1 bg-green-400"></div>
+                <div class="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-xl shadow-lg pulse">✓</div>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 w-full max-w-5xl">
+            <div class="glass p-8 text-center">
+                <h3 class="text-2xl font-bold text-white mb-6">📊 SEO Skoru</h3>
+                <div class="flex justify-center mb-4">
+                    <div class="score-circle" id="scoreCircle">
+                        <div class="score-inner">
+                            <div class="text-5xl font-black text-white" id="scoreValue">0</div>
+                            <div class="text-lg text-white/80 font-semibold">/ 100</div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-white/80 text-sm">YouTube algoritmasına uygunluk</p>
+                
+                <div class="flex justify-center gap-2 mt-4 flex-wrap">
+                    {% if seo_score >= 90 %}
+                    <span class="badge px-3 py-1 bg-yellow-500 text-white text-xs font-bold rounded-full">🏆 Mükemmel</span>
+                    {% elif seo_score >= 80 %}
+                    <span class="badge px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full">⭐ Harika</span>
+                    {% elif seo_score >= 70 %}
+                    <span class="badge px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded-full">👍 İyi</span>
+                    {% else %}
+                    <span class="badge px-3 py-1 bg-gray-500 text-white text-xs font-bold rounded-full">📝 Geliştirilmiş</span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="glass p-8">
+                <h3 class="text-2xl font-bold text-white mb-6 text-center">📈 Tahmini Artış</h3>
+                
+                <div class="space-y-4">
+                    <div class="bg-white/10 rounded-xl p-4 stat-mini">
+                        <div class="flex justify-between items-center">
+                            <span class="text-white/80">Aylık İzlenme:</span>
+                            <span class="text-green-300 font-bold text-xl">+<span id="viewIncrease">0</span></span>
+                        </div>
+                        <div class="h-2 bg-white/10 rounded-full mt-2 overflow-hidden">
+                            <div class="h-full bg-green-400 rounded-full" style="width: 0%; animation: fillBar 2s ease forwards;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/10 rounded-xl p-4 stat-mini">
+                        <div class="flex justify-between items-center">
+                            <span class="text-white/80">Tıklama Oranı:</span>
+                            <span class="text-yellow-300 font-bold text-xl">+<span id="ctrIncrease">0</span>%</span>
+                        </div>
+                        <div class="h-2 bg-white/10 rounded-full mt-2 overflow-hidden">
+                            <div class="h-full bg-yellow-400 rounded-full" style="width: 0%; animation: fillBar 2s ease forwards 0.5s;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/10 rounded-xl p-4 stat-mini">
+                        <div class="flex justify-between items-center">
+                            <span class="text-white/80">Etkileşim:</span>
+                            <span class="text-orange-300 font-bold text-xl">+<span id="engagementIncrease">0</span>%</span>
+                        </div>
+                        <div class="h-2 bg-white/10 rounded-full mt-2 overflow-hidden">
+                            <div class="h-full bg-orange-400 rounded-full" style="width: 0%; animation: fillBar 2s ease forwards 1s;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-white/70 text-sm">💡 Bu tahminler ortalama performans artışına dayalıdır</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="w-full max-w-5xl space-y-6">
+            
+            <div class="result-card p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <span class="text-3xl">📺</span> Başlık Seçenekleri
+                    </h3>
+                    <span class="text-green-300 text-sm font-semibold">{{ title_list|length }} Seçenek</span>
+                </div>
+                
+                {% if title_list %}
+                    {% for t in title_list %}
+                    <div class="bg-white/10 rounded-xl p-4 mb-3 hover:bg-white/20 transition group">
+                        <div class="flex justify-between items-start gap-3">
+                            <div class="flex-1">
+                                <span class="text-yellow-300 font-bold text-sm">{{ loop.index }}. Seçenek</span>
+                                <p class="text-white text-lg font-semibold mt-1">{{ t }}</p>
+                            </div>
+                            <button onclick="copyText(this.dataset.text, this)" data-text="{{ t }}"
+                                    class="copy-btn px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold rounded-lg opacity-0 group-hover:opacity-100 transition">
+                                📋 Kopyala
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+            <div class="result-card p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <span class="text-3xl">📝</span> Video Açıklaması
+                    </h3>
+                    <button onclick="copyText(this.dataset.text, this)" data-text="{{ description }}"
+                            class="copy-btn px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold rounded-lg">
+                        📋 Kopyala
+                    </button>
+                </div>
+                <div class="bg-white/10 rounded-xl p-5">
+                    <p class="text-white/90 whitespace-pre-wrap leading-relaxed">{{ description }}</p>
+                </div>
+                <p class="text-white/60 text-sm mt-3">
+                    💡 {{ description|length }} karakter • SEO optimize edilmiş • Hashtag'ler dahil
+                </p>
+            </div>
+            
+            <div class="result-card p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <span class="text-3xl">🏷️</span> Etiketler
+                    </h3>
+                    <button onclick="copyText(this.dataset.text, this)" data-text="{{ tags_joined }}"
+                            class="copy-btn px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold rounded-lg">
+                        📋 Kopyala
+                    </button>
+                </div>
+                <div class="bg-white/10 rounded-xl p-5">
+                    <div class="flex flex-wrap gap-2">
+                        {% if tags_list %}
+                            {% for tag in tags_list %}
+                            <span class="px-3 py-1 bg-white/20 text-white text-sm font-medium rounded-full hover:bg-white/30 transition cursor-pointer">
+                                {{ tag }}
+                            </span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <p class="text-white/60 text-sm mt-3">
+                    💡 {{ tags_list|length }} etiket • Virgülle ayrılmış • YouTube için optimize
+                </p>
+            </div>
+            
+            <div class="glass p-8">
+                <div class="text-center mb-6">
+                    <h3 class="text-3xl font-bold text-white mb-3">🎨 Thumbnail Oluştur</h3>
+                    <p class="text-white/80">Videonuz için profesyonel thumbnail tasarlayın!</p>
+                </div>
+                
+                <div class="bg-white/10 rounded-xl p-6 mb-6">
+                    <label for="customTitle" class="block text-white font-bold text-lg mb-3">
+                        ✍️ Thumbnail Başlığı (Opsiyonel)
+                    </label>
+                    <input 
+                        type="text" 
+                        id="customTitle" 
+                        placeholder="Örn: PANAMA'NIN GÜZELLİKLERİ" 
+                        maxlength="50"
+                        class="w-full px-5 py-4 bg-white/15 border-2 border-white/30 rounded-xl text-white text-lg font-semibold focus:ring-4 focus:ring-purple-400 focus:border-purple-400 transition placeholder-white/50"
+                    />
+                    <p class="text-white/60 text-sm mt-2 flex items-center gap-2">
+                        <span>💡</span>
+                        <span>Boş bırakırsanız otomatik başlık kullanılır</span>
+                    </p>
+                    <div class="text-right text-white/60 text-sm mt-1" id="titleCharCount">0 / 50</div>
+                </div>
+                
+                <div class="text-center">
+                    <button onclick="generateThumbnail()" id="generate-btn" 
+                            class="btn-secondary text-white font-bold py-4 px-8 rounded-xl shadow-2xl text-lg">
+                        ✨ Thumbnail Oluştur
+                    </button>
+                </div>
+                
+                <div id="loading" style="display:none;" class="mt-6 text-center">
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-4 border-white"></div>
+                    <p class="text-white mt-3 font-semibold">Thumbnail oluşturuluyor...</p>
+                </div>
+                
+                <div id="thumbnail-preview" style="display:none;" class="mt-6">
+                    <h4 class="text-xl font-semibold text-white mb-4 text-center">Önizleme:</h4>
+                    <img id="thumbnail-img" src="" alt="Thumbnail" class="w-full rounded-xl shadow-2xl border-4 border-white/20 mb-4">
+                    
+                    <div class="flex gap-3 justify-center flex-wrap">
+                        <button onclick="downloadThumbnail()" 
+                                class="btn-primary text-white font-bold py-3 px-6 rounded-xl">
+                            📥 İndir (JPEG)
+                        </button>
+                        <button onclick="generateThumbnail()" 
+                                class="btn-outline text-white font-semibold py-3 px-6 rounded-xl">
+                            🔄 Yeniden Oluştur
+                        </button>
+                    </div>
+                    
+                    <div class="mt-6 bg-gradient-to-r from-purple-600/30 to-pink-600/30 rounded-xl p-5 border-2 border-purple-400/50">
+                        <div class="text-center mb-4">
+                            <h4 class="text-xl font-bold text-white mb-2">💎 Daha Profesyonel Thumbnail İster misiniz?</h4>
+                            <p class="text-white/80 text-sm">
+                                İnsan yapımı, özel tasarlanmış premium thumbnail'ler için hızlıca bilgi bırakın!
+                            </p>
+                            <p class="text-green-300 text-xs font-semibold mt-2">
+                                ⚡ Sadece 30 saniye • Ücretsiz fiyat teklifi
+                            </p>
+                        </div>
+                        
+                        <!-- Örnek Thumbnails -->
+                        <div class="grid grid-cols-3 gap-2 mb-4">
+                            <div class="relative group">
+                                <div class="bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg aspect-video flex items-center justify-center text-3xl group-hover:scale-105 transition shadow-lg">
+                                    🎨
+                                </div>
+                                <div class="text-xs text-white/60 text-center mt-1">Premium Tasarım</div>
+                            </div>
+                            <div class="relative group">
+                                <div class="bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg aspect-video flex items-center justify-center text-3xl group-hover:scale-105 transition shadow-lg">
+                                    ✨
+                                </div>
+                                <div class="text-xs text-white/60 text-center mt-1">3D Efektler</div>
+                            </div>
+                            <div class="relative group">
+                                <div class="bg-gradient-to-br from-orange-500 to-red-500 rounded-lg aspect-video flex items-center justify-center text-3xl group-hover:scale-105 transition shadow-lg">
+                                    🚀
+                                </div>
+                                <div class="text-xs text-white/60 text-center mt-1">Viral Garantili</div>
+                            </div>
+                        </div>
+                        
+                        <a href="https://forms.gle/JCpuz76RJ64UMtXu9" 
+                           target="_blank"
+                           class="block w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-6 rounded-xl text-center shadow-xl transition transform hover:scale-105">
+                            📋 Hızlı Form Doldur (30 saniye)
+                        </a>
+                        
+                        <div class="mt-4 grid grid-cols-3 gap-2 text-center text-white/70 text-xs">
+                            <div>
+                                <div class="text-lg mb-1">⚡</div>
+                                <div>24 saat yanıt</div>
+                            </div>
+                            <div>
+                                <div class="text-lg mb-1">💰</div>
+                                <div>Uygun fiyat</div>
+                            </div>
+                            <div>
+                                <div class="text-lg mb-1">🎯</div>
+                                <div>Ücretsiz revizyon</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex gap-4 pt-4">
+                <a href="{{ url_for('index') }}" 
+                   class="flex-1 btn-outline text-white font-bold py-4 px-6 rounded-xl text-center shadow-xl">
+                    🔄 Yeni Optimizasyon
+                </a>
+            </div>
+            
+        </div>
+        
+        <div class="mt-12 text-center text-white/70 text-sm">
+            <p>🎉 Başarılı! Artık videonuz viral olmaya hazır!</p>
+        </div>
+    </div>
+    
+    <script>
+        function celebrate() {
+            const duration = 3000;
+            const end = Date.now() + duration;
+            (function frame() {
+                confetti({
+                    particleCount: 5, angle: 60, spread: 55, origin: { x: 0 },
+                    colors: ['#10b981', '#fbbf24', '#8b5cf6']
+                });
+                confetti({
+                    particleCount: 5, angle: 120, spread: 55, origin: { x: 1 },
+                    colors: ['#10b981', '#fbbf24', '#8b5cf6']
+                });
+                if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+        }
+        
+        function animateScore(target) {
+            const element = document.getElementById('scoreValue');
+            const circle = document.getElementById('scoreCircle');
+            const duration = 2000, steps = 60, increment = target / steps;
+            let current = 0;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+                const percentage = (current / 100) * 360;
+                circle.style.background = 'conic-gradient(#10b981 ' + percentage + 'deg, rgba(255,255,255,0.2) ' + percentage + 'deg)';
+            }, duration / steps);
+        }
+        
+        function animateCounter(id, target) {
+            const element = document.getElementById(id);
+            const duration = 2000, steps = 60, increment = target / steps;
+            let current = 0;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString('tr-TR');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString('tr-TR');
+                }
+            }, duration / steps);
+        }
+        
+        function copyText(text, button) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                const originalText = button.textContent;
+                button.textContent = '✅ Kopyalandı!';
+                button.classList.add('bg-green-600');
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('bg-green-600');
+                }, 2000);
+            } catch (err) {
+                console.error('Copy failed', err);
+            }
+            document.body.removeChild(textarea);
+        }
+        
+        function generateThumbnail() {
+            const loadingDiv = document.getElementById('loading');
+            const previewDiv = document.getElementById('thumbnail-preview');
+            const generateBtn = document.getElementById('generate-btn');
+            const customTitle = document.getElementById('customTitle').value.trim();
+            loadingDiv.style.display = 'block';
+            previewDiv.style.display = 'none';
+            generateBtn.disabled = true;
+            generateBtn.style.opacity = '0.6';
+            const requestData = customTitle ? { custom_title: customTitle } : {};
+            fetch('/generate-thumbnail', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('thumbnail-img').src = 'data:image/jpeg;base64,' + data.image_base64;
+                    loadingDiv.style.display = 'none';
+                    previewDiv.style.display = 'block';
+                    generateBtn.disabled = false;
+                    generateBtn.style.opacity = '1';
+                } else {
+                    alert('Hata: ' + data.error);
+                    loadingDiv.style.display = 'none';
+                    generateBtn.disabled = false;
+                    generateBtn.style.opacity = '1';
+                }
+            })
+            .catch(error => {
+                alert('Bir hata oluştu');
+                loadingDiv.style.display = 'none';
+                generateBtn.disabled = false;
+                generateBtn.style.opacity = '1';
+            });
+        }
+        
+        const titleInput = document.getElementById('customTitle');
+        if (titleInput) {
+            titleInput.addEventListener('input', function(e) {
+                const count = e.target.value.length;
+                const counter = document.getElementById('titleCharCount');
+                counter.textContent = count + ' / 50';
+                if (count > 45) { counter.style.color = '#ef4444'; }
+                else if (count > 35) { counter.style.color = '#f59e0b'; }
+                else { counter.style.color = 'rgba(255, 255, 255, 0.6)'; }
+            });
+        }
+        
+        function downloadThumbnail() {
+            const img = document.getElementById('thumbnail-img');
+            const link = document.createElement('a');
+            link.href = img.src;
+            link.download = 'youtube_thumbnail.jpg';
+            link.click();
+        }
+        
+        window.addEventListener('load', function() {
+            celebrate();
+            var seoScore = {{ seo_score|int }};
+            animateScore(seoScore);
+            var baseViews = 3500;
+            var viewIncrease = Math.floor(baseViews + (seoScore * 85));
+            animateCounter('viewIncrease', viewIncrease);
+            animateCounter('ctrIncrease', Math.floor((seoScore / 100) * 28) + 5);
+            animateCounter('engagementIncrease', Math.floor((seoScore / 100) * 50) + 15);
+        });
+    </script>
+</body>
+</html>

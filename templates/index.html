@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 YouTube Otomasyonu - Videolarınızı Viral Yapın!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .animated-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+        
+        .counter {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .chart-line {
+            stroke: #10b981;
+            stroke-width: 4;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: drawLine 2s ease forwards;
+        }
+        
+        @keyframes drawLine {
+            from { stroke-dasharray: 1000; stroke-dashoffset: 1000; }
+            to { stroke-dasharray: 1000; stroke-dashoffset: 0; }
+        }
+        
+        .chart-area {
+            fill: url(#gradient);
+            opacity: 0.3;
+            animation: fadeIn 2s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 0.3; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        
+        .pulse { animation: pulse 2s infinite; }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-primary:hover::before { left: 100%; }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(16, 185, 129, 0.4);
+        }
+        
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    
+    <div class="relative z-10 min-h-screen flex flex-col items-center p-4 md:p-8 py-12">
+        
+        <!-- Hero Section -->
+        <div class="text-center mb-6">
+            <h1 class="text-4xl md:text-6xl font-black text-white mb-3 drop-shadow-2xl">
+                🚀 Videolarınızı <span class="text-yellow-300">Viral</span> Yapın!
+            </h1>
+            <p class="text-lg md:text-xl text-white/90 font-semibold mb-2">
+                Yapay Zeka Destekli YouTube SEO Optimizasyonu
+            </p>
+            <p class="text-base text-white/80">
+                3 adımda profesyonel başlık, açıklama ve thumbnail
+            </p>
+        </div>
+        
+        <!-- Live Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 w-full max-w-5xl">
+            <div class="stat-card p-4 text-center">
+                <div class="text-4xl mb-2">🎬</div>
+                <div class="counter text-3xl" id="videoCount">0</div>
+                <div class="text-white/80 text-xs font-semibold mt-1">Video Optimize Edildi</div>
+            </div>
+            
+            <div class="stat-card p-4 text-center">
+                <div class="text-4xl mb-2">👁️</div>
+                <div class="counter text-3xl" id="viewCount">0</div>
+                <div class="text-white/80 text-xs font-semibold mt-1">Toplam İzlenme</div>
+            </div>
+            
+            <div class="stat-card p-4 text-center pulse">
+                <div class="text-4xl mb-2">📈</div>
+                <div class="counter text-green-300 text-3xl">+340%</div>
+                <div class="text-white/80 text-xs font-semibold mt-1">Ortalama Artış</div>
+            </div>
+            
+            <div class="stat-card p-4 text-center">
+                <div class="text-4xl mb-2">⭐</div>
+                <div class="counter text-yellow-300 text-3xl">4.9</div>
+                <div class="text-white/80 text-xs font-semibold mt-1">Kullanıcı Puanı</div>
+            </div>
+        </div>
+        
+        <!-- Form Card -->
+        <div class="glass p-6 md:p-8 w-full max-w-2xl mb-8">
+            <div class="flex items-center justify-center gap-2 mb-6">
+                <div class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-lg shadow-lg">1</div>
+                <div class="w-12 h-1 bg-white/30"></div>
+                <div class="w-10 h-10 rounded-full bg-white/30 text-white flex items-center justify-center font-bold text-lg">2</div>
+                <div class="w-12 h-1 bg-white/30"></div>
+                <div class="w-10 h-10 rounded-full bg-white/30 text-white flex items-center justify-center font-bold text-lg">3</div>
+            </div>
+            
+            <h2 class="text-2xl md:text-3xl font-bold text-white text-center mb-6">
+                📁 Video Kategorinizi Seçin
+            </h2>
+            
+            {% if error_message %}
+            <div class="bg-red-500/20 border border-red-400 text-white px-4 py-3 rounded-lg mb-6" role="alert">
+                <strong class="font-bold">⚠️ Hata:</strong>
+                <span class="block sm:inline ml-2">{{ error_message }}</span>
+            </div>
+            {% endif %}
+            
+            <form action="{{ url_for('index') }}" method="post" class="space-y-5">
+                <div>
+                    <select id="video_kategori" name="category" required 
+                            class="w-full px-6 py-4 bg-white/20 border-2 border-white/30 rounded-xl text-white text-lg font-medium focus:ring-4 focus:ring-green-400 focus:border-green-400 transition duration-200 shadow-lg"
+                            style="color: white !important;">
+                        <option value="" disabled selected style="color: #666;">-- Bir Kategori Seçin --</option>
+                        <option value="Vlog" style="color: #333; background: white;">🎥 Vlog / Günlük Yaşam</option>
+                        <option value="Yemek" style="color: #333; background: white;">🍔 Yemek / Yemek Tarifleri</option>
+                        <option value="Podcast" style="color: #333; background: white;">🎙️ Podcast / Sohbet</option>
+                        <option value="Travel" style="color: #333; background: white;">✈️ Seyahat / Gezi</option>
+                        <option value="Spor" style="color: #333; background: white;">💪 Spor / Fitness</option>
+                        <option value="Oyun" style="color: #333; background: white;">🎮 Oyun / Gameplay</option>
+                        <option value="Eğitim" style="color: #333; background: white;">📚 Eğitim / Öğretici</option>
+                        <option value="Teknoloji" style="color: #333; background: white;">💻 Teknoloji / İnceleme</option>
+                        <option value="Diğer" style="color: #333; background: white;">🎨 Diğer / Serbest Konu</option>
+                    </select>
+                </div>
+                
+                <button type="submit" 
+                        class="w-full btn-primary text-white font-bold py-4 px-8 rounded-xl shadow-2xl text-lg">
+                    🚀 Devam Et - Adım 1/3
+                </button>
+            </form>
+            
+            <!-- Trust badges -->
+            <div class="mt-6 pt-5 border-t border-white/20">
+                <div class="grid grid-cols-3 gap-3 text-center text-white/80 text-sm">
+                    <div>
+                        <div class="text-2xl mb-1">🔒</div>
+                        <div class="font-semibold text-xs">100% Güvenli</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl mb-1">⚡</div>
+                        <div class="font-semibold text-xs">8 Saniyede Hazır</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl mb-1">🎯</div>
+                        <div class="font-semibold text-xs">Garanti Sonuç</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chart Section -->
+        <div class="glass p-6 mb-6 w-full max-w-3xl">
+            <h3 class="text-xl font-bold text-white mb-4 text-center">📊 İzlenme Artış Grafiği</h3>
+            <div class="bg-white/10 rounded-lg p-4">
+                <svg viewBox="0 0 400 200" class="w-full h-40">
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.5" />
+                            <stop offset="100%" style="stop-color:#10b981;stop-opacity:0" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <line x1="50" y1="20" x2="50" y2="180" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                    <line x1="50" y1="180" x2="380" y2="180" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+                    
+                    <text x="20" y="60" fill="white" font-size="12">15K</text>
+                    <text x="20" y="110" fill="white" font-size="12">10K</text>
+                    <text x="25" y="160" fill="white" font-size="12">5K</text>
+                    <text x="30" y="195" fill="white" font-size="12">0</text>
+                    
+                    <text x="60" y="195" fill="white" font-size="11">Önce</text>
+                    <text x="330" y="195" fill="white" font-size="11">Sonra</text>
+                    
+                    <path class="chart-area" d="M 50 180 L 80 165 L 120 155 L 160 140 L 200 110 L 240 80 L 280 55 L 320 35 L 360 25 L 380 20 L 380 180 Z"/>
+                    <path class="chart-line" d="M 50 180 L 80 165 L 120 155 L 160 140 L 200 110 L 240 80 L 280 55 L 320 35 L 360 25 L 380 20"/>
+                    
+                    <circle cx="50" cy="180" r="5" fill="#ef4444"/>
+                    <circle cx="380" cy="20" r="6" fill="#10b981">
+                        <animate attributeName="r" values="6;8;6" dur="1.5s" repeatCount="indefinite"/>
+                    </circle>
+                </svg>
+                
+                <div class="flex justify-between mt-3 text-sm">
+                    <div class="text-center">
+                        <div class="text-red-300 font-bold text-base">2.1K</div>
+                        <div class="text-white/70 text-xs">Optimizasyon Öncesi</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-green-300 font-bold text-xl">15.8K</div>
+                        <div class="text-white/70 text-xs">Optimizasyon Sonrası</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Stats -->
+        <div class="mt-4 text-center text-white/70 text-sm">
+            <p>💚 1,847 içerik üreticisi bugün optimizasyon yaptı</p>
+        </div>
+    </div>
+    
+    <script>
+        function animateCounter(id, target, suffix = '') {
+            const element = document.getElementById(id);
+            const duration = 2000;
+            const steps = 60;
+            const increment = target / steps;
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString('tr-TR') + suffix;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString('tr-TR') + suffix;
+                }
+            }, duration / steps);
+        }
+        
+        window.addEventListener('load', () => {
+            animateCounter('videoCount', 12847);
+            animateCounter('viewCount', 125, 'M+');
+        });
+    </script>
+</body>
+</html>
