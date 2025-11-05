@@ -410,7 +410,7 @@ Profesyonel YouTube thumbnail konsepti oluştur.
 JSON formatında ver.
 """
 
-system_prompt = """  # type: ignore
+    system_prompt = """
 Sen thumbnail tasarımcısısın.
 
 ÇIKTI:
