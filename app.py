@@ -410,7 +410,7 @@ Profesyonel YouTube thumbnail konsepti oluştur.
 JSON formatında ver.
 """
 
-    system_prompt = """
+system_prompt = """  # type: ignore
 Sen thumbnail tasarımcısısın.
 
 ÇIKTI:
@@ -432,7 +432,6 @@ Sen thumbnail tasarımcısısın.
         "shadow_intensity": 0.8,
         "text_outline_width": 4
     },
-    "emoji": "🔥",
     "style": "bold_impact"
 }
 
@@ -441,6 +440,7 @@ KURALLAR:
 2. text_position: center/top/bottom/left
 3. overlay_opacity: 0.5-0.7
 4. Yüksek kontrast
+5. ASLA emoji kullanma, sadece metin
 """
 
     try:
@@ -548,7 +548,7 @@ def create_thumbnail_image(design_data, category, title="", detailed_description
         draw = ImageDraw.Draw(background)
         main_text = design_data.get('main_text', 'BAŞLIK').upper()
         sub_text = design_data.get('sub_text', '')
-        emoji = design_data.get('emoji', '')
+        emoji = ''  # ← Emoji'yi tamamen devre dışı bırak
         
         try:
             font_paths = [
@@ -595,11 +595,7 @@ def create_thumbnail_image(design_data, category, title="", detailed_description
         effects = design_data.get('effects', {})
         stroke_width = effects.get('text_outline_width', 7)
         
-        if emoji and len(emoji) > 0:
-            emoji_char = emoji[0]
-            emoji_code = ord(emoji_char)
-            if emoji_code < 0x1F300 or emoji_code == 9633:
-                emoji = ''
+        emoji = ''
         
         full_text = f"{emoji} {main_text}" if emoji else main_text
         bbox = draw.textbbox((0, 0), full_text, font=main_font)
