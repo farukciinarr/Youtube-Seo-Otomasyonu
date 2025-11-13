@@ -5,7 +5,6 @@ __pycache__/
 venv/
 .vscode/
 
-# Secrets and environment files
 api.txt
 .env
 *.key
